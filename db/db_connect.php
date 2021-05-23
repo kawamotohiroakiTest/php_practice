@@ -14,7 +14,7 @@ try {
     $dbh = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ]); 
-    echo '接続成功';
+    // echo '接続成功';
 } catch(PODException $e) {
     echo '失敗しました'. $e->getMessage();
     exit();

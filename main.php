@@ -1,4 +1,3 @@
 <?php
-require_once 'db/db_connect.php';
-
+require_once 'db/db_sql.php';
 ?>
