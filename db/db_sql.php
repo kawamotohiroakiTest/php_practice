@@ -1,6 +1,17 @@
 <?php
 require_once 'db_connect.php';
 
+function data_insert($blog_title, $blog_content) {
+    global $dbh;
+
+    $stml = $dbh->prepare("INSERT INTO blog VALUES (null, $blog_title, $blog_content, null, 1)");
+    $stml -> execute();
+}
+
+
+
+
+
 
 // 出力して、htmlに出す
 // $stml = $dbh->query("SELECT * FROM blog");
