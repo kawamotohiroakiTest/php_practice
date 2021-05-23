@@ -1,14 +1,33 @@
 <?php
 require_once 'db_connect.php';
 
+function data_display() {
+    global $dbh;
+    $stml = $dbh->prepare("SELECT * FROM blog");
+    $stml->execute();
+    foreach ($stml as $row) {
+        echo $row['title']."　".$row['content'];
+        echo '<br>';
+    }
+}
+
 function data_insert($blog_title, $blog_content) {
     global $dbh;
-
-    $stml = $dbh->prepare("INSERT INTO blog VALUES (null, $blog_title, $blog_content, null, 1)");
+    echo($blog_title);
+    echo($blog_content);
+    $stml = $dbh->prepare("INSERT INTO blog VALUES (null, '$blog_title', '$blog_content', null, 1)");
     $stml -> execute();
 }
 
+function edit() {
+    $stml = $dbh->prepare("UPDATE blog SET title ='２番目のタイトル'");
+    $stml -> execute();
+}
 
+function data_delete() {
+    $stml = $dbh->prepare("DELETE FROM blog");
+    $stml -> execute();
+}
 
 
 
