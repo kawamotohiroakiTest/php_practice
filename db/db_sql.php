@@ -59,23 +59,61 @@ require_once 'db_connect.php';
 
     //追加
     function data_insert($blog_title, $blog_content) {
-        global $dbh;
-        echo($blog_title);
-        echo($blog_content);
-        $stml = $dbh->prepare("INSERT INTO blog VALUES (null, '$blog_title', '$blog_content', null, 1, 1)");
+        $dbh = db_connect();
+        $sql =  "INSERT INTO blog VALUES 
+        (null, '$blog_title', '$blog_content', null, 1, 1)";
+
+        $stml = $dbh->query($sql);
         $stml -> execute();
     }
 
     //編集
-    function edit($blog_title, $blog_content) {
-        $stml = $dbh->prepare("UPDATE blog SET title ='$blog_title', content = '$blog_content'　WHERE id = 4");
-        $stml -> execute();
+    function data_edit($blog_id, $blog_title, $blog_content) {
+        $dbh = db_connect();
+        $dbh->beginTransaction();
+        try {
+            $sql =  "UPDATE blog SET 
+            title = '$blog_title', content = '$blog_content'
+            WHERE id = '$blog_id'";
+        
+            //queryメソッドでないとデータが取れない
+            // $stml = $dbh->query($sql);
+            //prepareで可能
+    
+            $stml = $dbh->prepare($sql);
+            // $stml->bindValue();
+            $dbh->query($sql);
+            $stml->execute();
+            // $result = $stml->fetchall(PDO::FETCH_ASSOC);
+            $dbh->commit();
+        } catch(PDOExpension $e) {
+            exit($e);
+            $dbh->rollBack();
+        }
     }
 
+
     //削除
-    function data_delete() {
-        $stml = $dbh->prepare("DELETE FROM blog");
-        $stml -> execute();
+    function data_delete($blog_detail_id) {
+        $dbh = db_connect();
+        $dbh->beginTransaction();
+        try {
+            $sql =  "DELETE FROM blog 
+            WHERE id = '$blog_detail_id'";
+            $stml = $dbh->prepare($sql);
+            // $stml->bindValue();
+            $dbh->query($sql);
+            $stml->execute();
+            $dbh->commit();
+        } catch(PDOExpension $e) {
+            exit($e);
+            echo'失敗';
+            $dbh->rollBack();
+        }
+    }
+
+    function h($s) {
+        htmlspecialchars($s, ENT_QUOTES, "UTF-8");
     }
 
 
