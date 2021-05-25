@@ -16,7 +16,7 @@ $result = data_display();
 <?php endforeach; ?>
 
 
-
-<h3><a href="blog_add.php">新規登録</a></h3>
+<h3><a href="blog_add.php">ブログ新規登録</a></h3>
+<h3><a href="public/signup.php">ユーザー登録画面へ</a></h3>
 
 

@@ -112,6 +112,17 @@ require_once 'db_connect.php';
         }
     }
 
+    function all_delete() {
+        $dbh = db_connect();
+        $sql =  "DELETE FROM blog";
+        $stml = $dbh->prepare($sql);
+        // $stml = $dbh->prepare($sql);
+        // $stml->bindValue();
+        $dbh->query($sql);
+        $stml->execute();
+    }
+
+
     function h($s) {
         htmlspecialchars($s, ENT_QUOTES, "UTF-8");
     }
