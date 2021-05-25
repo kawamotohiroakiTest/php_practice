@@ -10,9 +10,10 @@ $result = data_display();
 
 <?php foreach($result as $row): ?>
 <p><?php echo $row['id'].$row['title'].$row['content']; ?></p>
+<p><a href="/blog_detail.php?id= <?php echo $row['id'] ?>" >詳細</a></p>
 <?php endforeach; ?>
 
-}
+
 
 <h3><a href="blog_add.php">新規登録</a></h3>
 
